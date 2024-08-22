@@ -21,8 +21,7 @@ router.get("/user/:id", getOneUser);
 router.post(
   "/user",
   [
-    body("fname").exists(),
-    body("lname").exists(),
+    body("name").exists(),
     body("username").exists(),
     body("email").optional(),
     body("password").exists(),
@@ -35,8 +34,7 @@ router.post(
 router.put(
   "/user/:id",
   [
-    body("fname").optional(),
-    body("lname").optional(),
+    body("name").optional(),
     body("username").optional(),
     body("email").optional(),
     body("password").optional(),

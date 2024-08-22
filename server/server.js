@@ -1,5 +1,6 @@
 import express from "express";
 import user_api from "./API/user_route.js";
+import project_collection_route from "./API/project_collection_route.js";
 import cors from "cors";
 
 const app = express();
@@ -33,6 +34,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", user_api);
+app.use("/api/projects", project_collection_route);
 
 app.use((err, req, res, next) => {
   if (res.headersSent) {

@@ -28,8 +28,7 @@ export const createUser = async (req, res) => {
     }
 
     const newUser = await User.create({
-      fname: req.body.fname,
-      lname: req.body.lname,
+      name: req.body.name,
       username: req.body.username,
       email: req.body.email,
       password: await hashPassword(req.body.password),
@@ -46,8 +45,7 @@ export const updateUser = async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(
     req.params.id,
     {
-        fname: req.body.fname,
-        lname: req.body.lname,
+        name: req.body.name,
         username: req.body.username,
         email: req.body.email,        
       // password: await hashPassword(req.body.password),
@@ -74,7 +72,7 @@ export const signIn = async (req, res) => {
     if (user) {
       if (await comparePassword(req.body.password, user.password)) {
         const token = createJWT(user);
-        res.json({ token, success: true, cid: user._id });
+        res.json({ token, status: "success", cid: user._id });
       } else {
         res.json({ data: "Invalid Credentials", status: "failed" });
       }

@@ -1,55 +1,54 @@
 import { Router as Route } from "express";
 import { body } from "express-validator";
 import {
-  getAllCustomer,
-  getOneCustomer,
-  createCustomer,
-  updateCustomer,
-  deleteCustomer,
-  uploadFile,
-} from "./Handlers/Customer.js";
+  getAllProjects,
+  getoneProject,
+  createProject,
+  updateProject,
+  deleteProject,
+} from "./Handlers/Project.js";
 import { inputErrorHandler } from "./Module/middleware.js";
 import cors from "cors";
 import { protect } from "./Module/auth.js";
 
 const router = Route();
 router.use(cors());
-// Get All the Customers
-router.get("/customerall", protect, getAllCustomer);
 
-// Get Customer by it's id
-router.get("/customer/:id", getOneCustomer);
-  
-// Create Customer
+router.get("/getallprojects", getAllProjects);
+
+router.get("/project/:id", getoneProject);
+
 router.post(
-  "/customer",
-  [
-    body("cname").exists(),
-    body("cphone_number").exists(),
-    body("caddress").exists(),
-    body("bottle_price").exists(),
-    body("delivery_sequence_number").exists(),
-  ],
-  inputErrorHandler,
-  createCustomer
-);
+    "/project",
+    [
+        body("student_name").notEmpty().withMessage("Student name is required"),
+        body("student_id").notEmpty().withMessage("Student ID is required"),
+        body("project_name").notEmpty().withMessage("Project name is required"),
+        body("project_category").notEmpty().withMessage("Project category is required"),
+        body("project_description").notEmpty().withMessage("Project description is required"),
+        body("faculty_name").notEmpty().withMessage("Faculty name is required"),        
+    ],
+    inputErrorHandler,
+    protect,
+    createProject
+    );
 
-// Update Customer
-router.put(
-  "/customer/:id",
-  [
-    body("cname").optional(),
-    body("cphone_number").optional(),
-    body("caddress").optional(),
-    body("bottle_price").optional(),
-    body("delivery_sequence_number").optional(),
-  ],
-  inputErrorHandler,
-  updateCustomer
-);
+router.put("project/:id",
+    [
+        body("student_name").optional(),
+        body("student_id").optional(),
+        body("project_name").optional(),
+        body("project_category").optional(),
+        body("project_description").optional(),
+        body("project_link").optional(),
+        body("faculty_name").optional(),     
+    ],
+    inputErrorHandler,
+    protect, updateProject);
 
-// Delete Customer
-router.delete("/customer/:id", deleteCustomer);
+router.delete("project/:id", protect, deleteProject);
+
+
 
 
 export default router;
