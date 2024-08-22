@@ -38,6 +38,14 @@ const Login = () => {
 
                 navigate('/dashboard');
             }
+
+            if (data.data === 'Invalid Credentials') {
+                alert('Invalid Credentials');
+            }
+
+            if (data.data === 'Invalid Username') {
+                alert('User not found');
+            }
         };
         Loginuser();
         

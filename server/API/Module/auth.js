@@ -15,6 +15,7 @@ export const createJWT = (user) => {
     {
       id: user.id,
       username: user.username,
+      name: user.name,
     },
     process.env.JWT_SECRET
   );

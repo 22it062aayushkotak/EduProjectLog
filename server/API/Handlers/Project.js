@@ -63,16 +63,10 @@ export const updateProject = async (req, res) => {
 };
 
 export const deleteProject = async (req, res) => {
-  try {
-    const project = await ProjectCollection.findById(req.params.id);
-
-    if (!project) {
-      return res.status(404).json({ message: "Project not found" });
-    }
-
+  try {  
     await ProjectCollection.findByIdAndRemove(req.params.id);
     res.status(200).json({ message: "Project deleted successfully" , status: "success"});
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    res.status(404).json({ message: error.message, status: "failed" });
   }
 };

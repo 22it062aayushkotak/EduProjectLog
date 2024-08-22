@@ -46,7 +46,7 @@ router.put("project/:id",
     inputErrorHandler,
     protect, updateProject);
 
-router.delete("project/:id", protect, deleteProject);
+router.delete("project/:id", deleteProject);
 
 
 

@@ -1,11 +1,20 @@
+import { useNavigate } from "react-router-dom";
 import TopNavbar from "./TopNavbar"
+import { useEffect } from "react";
 
 
-const Dashboard = () => {
+const Dashboard = ({name}) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {    
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  }, [navigate]);
   return (
     <div>
-        <TopNavbar />
-      <h1>Dashboard</h1>
+        <TopNavbar name={name} />
+        <h1>Welcome, {name}</h1>
     </div>
   )
 }
